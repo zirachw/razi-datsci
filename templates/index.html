@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campaign Prediction</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Using CSS for styling -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+
+    <!-- Web Icon -->
+    <link rel="icon" href="{{ url_for('static', filename='icons.png') }}" />
+  </head>
+  <body onload="viewResult()">
+    <header>
+      <a class="nim"> 19623163 </a>
+      <div class="nama">
+        <a>Razi</a>
+        <c>Rachman</c>
+        <c>Widyadhana</c>
+      </div>
+    </header>
+    <div class="Container">
+      <!-- Header -->
+      <div class="title">Campaign Prediction</div>
+      <!-- View Result -->
+      <div id="view_result" class="view_result">{{ results }}</div>
+      <script>
+        function viewResult() {
+          var result = "{{ results }}";
+          var viewResultDiv = document.getElementById("view_result");
+          if (result == "Accepted") {
+            viewResultDiv.style.color = "lightgreen";
+          } else {
+            viewResultDiv.style.color = "pink";
+          }
+        }
+      </script>
+      <div class="percentage">{{ prediction_text }}</div>
+      <!-- Form -->
+      <form id="form" action="{{ url_for('predict')}}" method="post">
+        <!-- Content -->
+        <div class="content">
+          <!-- Year_Birth -->
+          <div class="input-box">
+            <label for="Year_Birth">Year Birth</label>
+            <select name="Year_Birth" id="Year_Birth" required></select>
+            <script
+              type="text/javascript"
+              src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+            ></script>
+            <script type="text/javascript">
+              let startYear = 1923;
+              let endYear = 1996;
+              for (i = endYear; i > startYear; i--) {
+                $("#Year_Birth").append($("<option />").val(i).html(i));
+              }
+            </script>
+          </div>
+
+          <!-- Education -->
+          <div class="input-box">
+            <label for="Education">Education</label>
+            <select name="Education" id="Education" required>
+              <option value="2n Cycle">2nd Cycle</option>
+              <option value="Basic">Basic</option>
+              <option value="Graduation">Graduation</option>
+              <option value="Master">Master</option>
+              <option value="PhD">PhD</option>
+            </select>
+          </div>
+
+          <!-- Marital_Status -->
+          <div class="input-box">
+            <label for="Marital_Status">Marital Status</label>
+            <select name="Marital_Status" id="Marital_Status" required>
+              <option value="Alone">Alone</option>
+              <option value="Divorced">Divorced</option>
+              <option value="Married">Married</option>
+              <option value="Together">Together</option>
+              <option value="Widow">Widow</option>
+            </select>
+          </div>
+
+          <!-- Income -->
+          <div class="input-box">
+            <label for="Income">Income</label>
+            <input
+              type="number"
+              id="Income"
+              name="Income"
+              min="0"
+              max="400000"
+              required
+            />
+          </div>
+
+          <!-- Kidhome -->
+          <div class="input-box">
+            <label for="Kidhome">Kidhome</label>
+            <input
+              type="number"
+              id="Kidhome"
+              name="Kidhome"
+              min="0"
+              max="2"
+              required
+            />
+          </div>
+
+          <!-- Teenhome -->
+          <div class="input-box">
+            <label for="Teenhome">Teenhome</label>
+            <input
+              type="number"
+              id="Teenhome"
+              name="Teenhome"
+              min="0"
+              max="2"
+              required
+            />
+          </div>
+
+          <!-- Dt_Customer -->
+          <div class="input-box">
+            <label for="Dt_Customer">Date Customer</label>
+            <input
+              type="date"
+              id="Dt_Customer"
+              name="Dt_Customer"
+              min="2012-01-10"
+              max="2014-12-06"
+              required
+            />
+          </div>
+
+          <!-- Recency -->
+          <div class="input-box">
+            <label for="Recency">Recency</label>
+            <input
+              type="number"
+              id="Recency"
+              name="Recency"
+              min="0"
+              max="100"
+              required
+            />
+          </div>
+
+          <!-- MntWines -->
+          <div class="input-box">
+            <label for="MntWines">Amount Wines</label>
+            <input
+              type="number"
+              id="MntWines"
+              name="MntWines"
+              min="0"
+              max="500"
+              required
+            />
+          </div>
+
+          <!-- MntFruits -->
+          <div class="input-box">
+            <label for="MntFruits">Amount Fruits</label>
+            <input
+              type="number"
+              id="MntFruits"
+              name="MntFruits"
+              min="0"
+              max="250"
+              required
+            />
+          </div>
+
+          <!-- MntMeatProducts -->
+          <div class="input-box">
+            <label for="MntMeatProducts">Amount Meat Products</label>
+            <input
+              type="number"
+              id="MntMeatProducts"
+              name="MntMeatProducts"
+              min="0"
+              max="1000"
+              required
+            />
+          </div>
+
+          <!-- MntFishProducts -->
+          <div class="input-box">
+            <label for="MntFishProducts">Amount Fish Products</label>
+            <input
+              type="number"
+              id="MntFishProducts"
+              name="MntFishProducts"
+              min="0"
+              max="250"
+              required
+            />
+          </div>
+
+          <!-- MntSweetProducts -->
+          <div class="input-box">
+            <label for="MntSweetProducts">Amount Sweet Products</label>
+            <input
+              type="number"
+              id="MntSweetProducts"
+              name="MntSweetProducts"
+              min="0"
+              max="250"
+              required
+            />
+          </div>
+
+          <!-- MntGoldProds -->
+          <div class="input-box">
+            <label for="MntGoldProds">Amount Gold Products</label>
+            <input
+              type="number"
+              id="MntGoldProds"
+              name="MntGoldProds"
+              min="0"
+              max="250"
+              required
+            />
+          </div>
+
+          <!-- NumDealsPurchases -->
+          <div class="input-box">
+            <label for="NumDealsPurchases">Number Deals Purchases</label>
+            <input
+              type="number"
+              id="NumDealsPurchases"
+              name="NumDealsPurchases"
+              min="0"
+              max="5"
+              required
+            />
+          </div>
+
+          <!-- NumWebPurchases -->
+          <div class="input-box">
+            <label for="NumWebPurchases">Number Web Purchases</label>
+            <input
+              type="number"
+              id="NumWebPurchases"
+              name="NumWebPurchases"
+              min="0"
+              max="10"
+              required
+            />
+          </div>
+
+          <!-- NumCatalogPurchases -->
+          <div class="input-box">
+            <label for="NumCatalogPurchases">Number Catalog Purchases</label>
+            <input
+              type="number"
+              id="NumCatalogPurchases"
+              name="NumCatalogPurchases"
+              min="0"
+              max="5"
+              required
+            />
+          </div>
+
+          <!-- NumStorePurchases -->
+          <div class="input-box">
+            <label for="NumStorePurchases">Number Store Purchases</label>
+            <input
+              type="number"
+              id="NumStorePurchases"
+              name="NumStorePurchases"
+              min="0"
+              max="7"
+              required
+            />
+          </div>
+
+          <!-- NumWebVisitsMonth -->
+          <div class="input-box">
+            <label for="NumWebVisitsMonth">Number Web Visits Month</label>
+            <input
+              type="number"
+              id="NumWebVisitsMonth"
+              name="NumWebVisitsMonth"
+              min="0"
+              max="7"
+              required
+            />
+          </div>
+
+          <!-- Complain -->
+          <div class="input-box">
+            <label for="Complain">Complain</label>
+            <select name="Complain" id="Complain" required>
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div id="button" class="button">
+          <button type="submit">Predict</button>
+        </div>
+      </form>
+    </div>
+    <script type="text/javascript">
+      // Check if the current URL path is '/predict'
+      if (window.location.pathname === "/predict") {
+        // Hide the submit button
+        document.getElementById("button").style.display = "none";
+        document.getElementById("form").style.display = "none";
+      }
+      if (window.location.pathname === "/") {
+        document.getElementById("view_result").style.display = "none";
+      }
+    </script>
+  </body>
+</html>
